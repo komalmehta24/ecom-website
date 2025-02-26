@@ -27,7 +27,7 @@ class Products{
         
        try {
             
-        let result= await fetch('products.json') 
+        let result= await fetch('products.json') ;
             //fetch() =sends request to get the file named products.json
             // await = makes JS wait untill fetch request is completed and response is stored in result variable
             
@@ -117,7 +117,7 @@ class UI{
         let tempTotal = 0;
         let itemsTotal = 0;
         cart.map(item =>{
-            tempTotal += item.price * item.amount;
+            tempTotal += parseFloat(item.price) * item.amount;
             itemsTotal += item.amount;
         });
         cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
@@ -127,7 +127,7 @@ class UI{
     addCartItem(item){
         const div = document.createElement('div');
         div.classList.add('cart-item');
-        div.innerHTML = `<img src= ${iyem.image} alt="product" />
+        div.innerHTML = `<img src= ${item.image} alt="product" />
                     <div>
                         <h4>${item.title}</h4>
                         <h5>Rs ${item.price}</h5>
@@ -148,7 +148,7 @@ class UI{
         cart = Storage.getCart();
         this.setCartValues(cart);
         this.populateCart(cart);
-        cartBtn.addEventListener.add('click',this.showCart);
+        cartBtn.addEventListener('click',this.showCart);
         closeCartBtn.addEventListener('click',this.hideCart);
     }
     populateCart(cart){
@@ -175,7 +175,7 @@ class UI{
             ("fa-chevron-up")){
         let addAmount = event.target;
         let id = addAmount.dataset.id;
-        let tempItem = cart.find(item => item.id ===id);
+        let tempItem = cart.find(item => item.id ==id);
         tempItem.amount = tempItem.amount + 1;
         Storage.saveCart(cart);
         this.setCartValues(cart);
@@ -216,7 +216,7 @@ class UI{
         button.disabled = false ;
         button.innerHTML = ` <i class="fas fa-shopping-cart"></i>add to cart`;
     }
-    getSingleButton(){
+    getSingleButton(id){
         return buttonsDOM.find(button => button.dataset.id === id);
     }
 
@@ -257,6 +257,7 @@ document.addEventListener("DOMContentLoaded",() =>{
 
     //setup applications
     ui.setupAPP();
+    ui.cartLogic();
 
     //Calls getProducts() (which fetches products.json).
     products.getProducts().then(products => {
