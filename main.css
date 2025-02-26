@@ -40,6 +40,11 @@ body {
   justify-content: space-between;
   padding: 0 1.5rem;
 }
+#logo{
+  height:150px;
+  width: 150px;
+  
+}
 .nav-icon {
   font-size: 1.5rem;
 }
